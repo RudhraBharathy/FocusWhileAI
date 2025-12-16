@@ -1,10 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "AI Waiting Room: Bubble Wrap",
-  "version": "1.0",
-  "description": "Play bubble wrap while waiting for AI responses to prevent distraction.",
+  "name": "FocusWhileAI",
+  "version": "1.0.0",
+  "description": "Turn the 'Waiting Gap' into a Micro-Learning Engine.",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
+      "js": ["src/content.jsx"],
       "matches": [
         "*://*.chatgpt.com/*",
         "*://gemini.google.com/*",
@@ -13,8 +26,9 @@
         "*://copilot.microsoft.com/*",
         "*://grok.com/*"
       ],
-    "css": ["styles.css"],
-    "js": ["content.js"]
-  }
-]
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": ["storage"],
+  "host_permissions": ["https://api.coindesk.com/*"]
 }
