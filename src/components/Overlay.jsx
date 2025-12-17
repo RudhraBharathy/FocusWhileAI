@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import WidgetCard from './WidgetCard';
 import { getCurrentSite, isAIThinking } from '../utils/site-detect';
 
@@ -38,7 +38,7 @@ export default function Overlay() {
     if (!visible) return null;
 
     return (
-        <div className="fixed inset-0 z-[2147483647] flex items-center justify-center bg-slate-950/80 backdrop-blur-sm transition-opacity duration-300">
+        <div className="fixed inset-0 z-2147483647 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm transition-opacity duration-300">
             <WidgetCard category={currentInterest} />
         </div>
     );

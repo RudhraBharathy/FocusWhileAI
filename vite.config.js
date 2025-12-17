@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { crx } from "@crxjs/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import manifest from "./manifest.json";
-import { resolve } from "path"; // Import this
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), crx({ manifest })],
@@ -17,14 +17,10 @@ export default defineConfig({
     },
     headers: { "Access-Control-Allow-Origin": "*" },
   },
-  // --- ADD THIS BLOCK ---
   build: {
     rollupOptions: {
       input: {
-        // This tells Vite: "Also build these HTML files"
         onboarding: resolve(__dirname, "onboarding.html"),
-        // If you have index.html (popup), it's automatically handled by manifest,
-        // but it doesn't hurt to list it here too:
         popup: resolve(__dirname, "index.html"),
       },
     },

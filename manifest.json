@@ -3,9 +3,6 @@
   "name": "FocusWhileAI",
   "version": "1.0.0",
   "description": "Turn the 'Waiting Gap' into a Micro-Learning Engine.",
-  "action": {
-    "default_popup": "index.html"
-  },
   "icons": {
     "16": "icon-16.png",
     "48": "icon-48.png",

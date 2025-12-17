@@ -1,13 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 
+* {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-brand-dark: #0f172a;
-  --color-brand-accent: #38bdf8;
-  
+
   --animate-fade-in: fade-in 0.3s ease-out;
-  
+
+  --color-brand-dark: #020617;
+  --color-brand-surface: #a3e2ed;
+  --color-brand-accent: #6bbfbe;
+  --color-brand-glow: #7afcf7;
+
+  --color-text-main: #f1f5f9;
+  --color-text-muted: #64748b;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
   @keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
