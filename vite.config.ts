@@ -23,6 +23,15 @@ export default defineConfig({
         onboarding: resolve(__dirname, "onboarding.html"),
         popup: resolve(__dirname, "index.html"),
       },
+      output: {
+        manualChunks: undefined,
+      },
     },
+    commonjsOptions: {
+      include: [/node_modules/],
+    },
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom"],
   },
 });

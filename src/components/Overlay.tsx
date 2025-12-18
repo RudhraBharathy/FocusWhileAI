@@ -3,6 +3,7 @@ import WidgetCard from "./WidgetCard";
 import { getCurrentSite, isAIThinking } from "../utils/site-detect";
 import type { SiteConfig } from "../utils/site-detect";
 
+
 type Interest = "coding" | "finance" | "zen";
 
 export default function Overlay() {
