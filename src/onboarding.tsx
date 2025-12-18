@@ -3,64 +3,21 @@ import { cn } from "./lib/utils";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Option from "./components/Option";
-import {
-  ArrowRight,
-  ChartNoAxesCombined,
-  CodeXml,
-  TrendingUp,
-  Coffee,
-  Brain,
-  Gamepad2,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-
-const INTEREST_OPTIONS = [
-  {
-    id: "productivity",
-    label: "Productivity",
-    icon: ChartNoAxesCombined,
-  },
-  {
-    id: "technology",
-    label: "Technology",
-    icon: CodeXml,
-  },
-  {
-    id: "finance",
-    label: "Finance & Market",
-    icon: TrendingUp,
-  },
-  {
-    id: "mindfulness",
-    label: "Mindfulness",
-    icon: Coffee,
-  },
-  {
-    id: "generalKnowledge",
-    label: "General Knowledge",
-    icon: Brain,
-  },
-  {
-    id: "games",
-    label: "Games",
-    icon: Gamepad2,
-  },
-];
-
-const DEFAULT_SELECTED = INTEREST_OPTIONS.slice(0, 2).map((o) => o.id);
+import { INTEREST_OPTIONS, DEFAULT_SELECTED, type InterestId } from "./utils/interestOptions";
 
 function Onboarding() {
-  const [step, setStep] = useState(1);
-  const [username, setUsername] = useState("");
-  const [interests, setInterests] = useState(DEFAULT_SELECTED);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [step, setStep] = useState<number>(1);
+  const [username, setUsername] = useState<string>("");
+  const [interests, setInterests] = useState<InterestId[]>(DEFAULT_SELECTED);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const handleNext = async () => {
     if (!username) return;
     setLoading(true);
-
     const docRef = doc(db, "users", username);
     const docSnap = await getDoc(docRef);
 
@@ -77,11 +34,11 @@ function Onboarding() {
   const handleFinish = async () => {
     setLoading(true);
     try {
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         chrome.storage.local.set(
           {
-            username: username,
-            interests: interests,
+            username,
+            interests,
             isSetupComplete: true,
           },
           resolve
@@ -89,8 +46,8 @@ function Onboarding() {
       });
 
       await setDoc(doc(db, "users", username), {
-        username: username,
-        interests: interests,
+        username,
+        interests,
         createdAt: new Date(),
       });
 
@@ -103,19 +60,14 @@ function Onboarding() {
     }
   };
 
-  const toggle = (id) => {
-    setInterests((prev) => {
-      const next = prev.includes(id)
-        ? prev.filter((item) => item !== id)
-        : [...prev, id];
-      return next;
-    });
+  const toggle = (id: InterestId) => {
+    setInterests((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
 
   useEffect(() => {
-    const isDarkMode = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+    const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
     document.documentElement.classList.add(isDarkMode ? "dark" : "light");
   }, []);
 
@@ -144,7 +96,7 @@ function Onboarding() {
           </div>
 
           {step === 1 ? (
-            <div className="relative flex w-4/5 max-w-md items-center gap-2 rounded-full border border-white/20 bg-gradient-to-br from-white/20 to-white/5 py-1.5 pl-6 pr-1.5 mt-10">
+            <div className="relative flex w-4/5 max-w-md items-center gap-2 rounded-full border border-white/20 bg-linear-to-br from-white/20 to-white/5 py-1.5 pl-6 pr-1.5 mt-10">
               <input
                 className="relative flex w-full py-1.5 pr-1.5 outline-none color-white placeholder:text-gray-300 text-lg text-white"
                 type="text"
@@ -158,8 +110,7 @@ function Onboarding() {
               <button
                 onClick={handleNext}
                 disabled={loading || !username.trim()}
-                className="group flex shrink-0 items-center gap-1 rounded-full bg-gradient-to-br from-gray-50 to-gray-400 px-3 py-2.5 text-sm font-medium text-gray-900 
-            transition-transform active:scale-[0.985] cursor-pointer"
+                className="group flex shrink-0 items-center gap-1 rounded-full bg-linear-to-br from-gray-50 to-gray-400 px-3 py-2.5 text-sm font-medium text-gray-900 transition-transform active:scale-[0.985] cursor-pointer"
               >
                 <span>Get Started</span>
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -181,18 +132,13 @@ function Onboarding() {
               <button
                 onClick={handleFinish}
                 disabled={loading || !interests.length}
-                className="group flex justify-center align-center mt-6 shrink-0 w-36 items-center gap-1 rounded-full bg-gradient-to-br from-gray-50 to-gray-400 px-3 py-2.5 text-xl 
-                font-medium text-gray-900 transition-transform active:scale-[0.985] cursor-pointer mt-10"
+                className="group flex justify-center align-center mt-6 shrink-0 w-36 items-center gap-1 rounded-full bg-linear-to-br from-gray-50 to-gray-400 px-3 py-2.5 text-xl font-medium text-gray-900 transition-transform active:scale-[0.985] cursor-pointer"
               >
                 <span>Let's Go!</span>
               </button>
             </div>
           ) : null}
-          {error && (
-            <p className="text-red-500 mt-2">
-              {error || "Something went wrong!"}
-            </p>
-          )}
+          {error && <p className="text-red-500 mt-2">{error || "Something went wrong!"}</p>}
         </div>
 
         <div className="text-text-muted text-sm">
@@ -211,7 +157,7 @@ function Onboarding() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Onboarding />
   </React.StrictMode>

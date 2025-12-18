@@ -1,6 +1,16 @@
 import { cn } from "../lib/utils";
 
-const Option = ({ label, icon, active, onClick }) => {
+const Option = ({
+  label,
+  icon,
+  active,
+  onClick,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  active: boolean;
+  onClick: () => void;
+}) => {
   return (
     <button
       type="button"

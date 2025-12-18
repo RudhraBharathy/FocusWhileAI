@@ -1,6 +1,6 @@
 console.log("[FocusWhileAI] Background script loaded.");
 
-chrome.runtime.onInstalled.addListener((details) => {
+chrome.runtime.onInstalled.addListener((details: chrome.runtime.InstalledDetails) => {
   console.log("[FocusWhileAI] Event triggered. Reason:", details.reason);
 
   if (details.reason === "install" || details.reason === "update") {
