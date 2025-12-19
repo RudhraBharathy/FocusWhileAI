@@ -2,30 +2,34 @@ import { useEffect, useState } from "react";
 import WidgetCard from "./WidgetCard";
 import { getCurrentSite, isAIThinking } from "../utils/site-detect";
 import type { SiteConfig } from "../utils/site-detect";
-
-
-type Interest = "coding" | "finance" | "zen";
+import { DEFAULT_SELECTED, type InterestId } from "../utils/interestOptions";
 
 export default function Overlay() {
   const [visible, setVisible] = useState<boolean>(false);
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
-
-  // Default interest for MVP (later load from Firebase/Storage)
-  const [currentInterest, setCurrentInterest] = useState<Interest>("coding");
+  const [currentInterest, setCurrentInterest] = useState<InterestId>(
+    DEFAULT_SELECTED[0]
+  );
+  const [interests, setInterests] = useState<InterestId[]>(DEFAULT_SELECTED);
 
   useEffect(() => {
     const config = getCurrentSite();
-
     if (config) {
-      console.log("[FocusWhileAI] Active on:", config.host);
       setSiteConfig(config);
     }
   }, []);
 
   useEffect(() => {
-    if (!siteConfig) return;
+    chrome.storage.local.get("interests").then((result) => {
+      const stored = result.interests as InterestId[] | undefined;
+      if (stored?.length) {
+        setInterests(stored);
+      }
+    });
+  }, []);
 
-    const interests: Interest[] = ["coding", "finance", "zen"];
+  useEffect(() => {
+    if (!siteConfig) return;
 
     const interval = setInterval(() => {
       const thinking = isAIThinking(siteConfig);
@@ -41,7 +45,7 @@ export default function Overlay() {
     }, 500);
 
     return () => clearInterval(interval);
-  }, [siteConfig, visible]);
+  }, [siteConfig, visible, interests]);
 
   if (!visible) return null;
 

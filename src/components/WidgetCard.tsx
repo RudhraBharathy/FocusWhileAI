@@ -1,19 +1,28 @@
 import { JSX, useMemo } from "react";
 import { Terminal, TrendingUp, Coffee } from "lucide-react";
+import type { InterestId } from "../utils/interestOptions";
 
 type Card = {
   title: string;
   content: string;
 };
 
-type Category = "coding" | "finance" | "zen";
-
 type WidgetCardProps = {
-  category: Category;
+  category: InterestId;
 };
 
-// Mock Data – later replace with Firebase
-const DATA_DECKS: Record<Category, Card[]> = {
+type SupportedCategory = "coding" | "finance" | "zen";
+
+const CATEGORY_MAP: Record<InterestId, SupportedCategory> = {
+  productivity: "coding",
+  technology: "coding",
+  finance: "finance",
+  mindfulness: "zen",
+  generalKnowledge: "coding",
+  games: "zen",
+};
+
+const DATA_DECKS: Record<SupportedCategory, Card[]> = {
   coding: [
     {
       title: "JS Tip",
@@ -53,24 +62,25 @@ const DATA_DECKS: Record<Category, Card[]> = {
   ],
 };
 
-const ICONS: Record<Category, JSX.Element> = {
+const ICONS: Record<SupportedCategory, JSX.Element> = {
   coding: <Terminal className="w-8 h-8 text-blue-400" />,
   finance: <TrendingUp className="w-8 h-8 text-green-400" />,
   zen: <Coffee className="w-8 h-8 text-orange-400" />,
 };
 
 export default function WidgetCard({ category }: WidgetCardProps) {
-  // Pick a random card whenever the category changes
+  const mappedCategory = CATEGORY_MAP[category];
+
   const card = useMemo<Card>(() => {
-    const deck = DATA_DECKS[category];
+    const deck = DATA_DECKS[mappedCategory];
     return deck[Math.floor(Math.random() * deck.length)];
-  }, [category]);
+  }, [mappedCategory]);
 
   return (
     <div className="bg-slate-800/90 backdrop-blur-md p-8 rounded-2xl border border-slate-700 shadow-2xl max-w-md w-full animate-fade-in">
       <div className="flex items-center gap-3 mb-4">
         <div className="p-3 bg-slate-700 rounded-full">
-          {ICONS[category]}
+          {ICONS[mappedCategory]}
         </div>
         <h3 className="text-slate-200 font-bold text-lg uppercase tracking-wider">
           {category}
@@ -79,9 +89,7 @@ export default function WidgetCard({ category }: WidgetCardProps) {
 
       <div className="space-y-2">
         <h4 className="text-white text-2xl font-bold">{card.title}</h4>
-        <p className="text-slate-300 text-lg leading-relaxed">
-          {card.content}
-        </p>
+        <p className="text-slate-300 text-lg leading-relaxed">{card.content}</p>
       </div>
 
       <div className="mt-6 pt-4 border-t border-slate-700 flex justify-between text-xs text-slate-500">

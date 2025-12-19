@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { cn } from "./lib/utils";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
+import { cn } from "./lib/utils";
 import "./index.css";
 import Option from "./components/Option";
 import { ArrowRight } from "lucide-react";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { INTEREST_OPTIONS, DEFAULT_SELECTED, type InterestId } from "./utils/interestOptions";
+import {
+  INTEREST_OPTIONS,
+  DEFAULT_SELECTED,
+  type InterestId,
+} from "./utils/interestOptions";
+import {
+  saveInitialState,
+  saveUsername,
+  finalizeOnboarding,
+} from "./utils/onboardingState";
 
 function Onboarding() {
   const [step, setStep] = useState<number>(1);
@@ -15,46 +24,45 @@ function Onboarding() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const handleNext = async () => {
-    if (!username) return;
-    setLoading(true);
-    const docRef = doc(db, "users", username);
-    const docSnap = await getDoc(docRef);
+  useEffect(() => {
+    saveInitialState();
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.add(isDark ? "dark" : "light");
+  }, []);
 
-    if (docSnap.exists()) {
-      setError("Username taken! Try another.");
-      setLoading(false);
-    } else {
-      setError("");
-      setLoading(false);
+  const handleNext = async () => {
+    if (!username.trim()) return;
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const ref = doc(db, "users", username);
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        setError("Username taken! Try another.");
+        return;
+      }
+
+      await saveUsername(username);
       setStep(2);
+    } catch {
+      setError("Failed to check username. Try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleFinish = async () => {
     setLoading(true);
+    setError("");
+
     try {
-      await new Promise<void>((resolve) => {
-        chrome.storage.local.set(
-          {
-            username,
-            interests,
-            isSetupComplete: true,
-          },
-          resolve
-        );
-      });
-
-      await setDoc(doc(db, "users", username), {
-        username,
-        interests,
-        createdAt: new Date(),
-      });
-
+      await finalizeOnboarding(username, interests);
       window.close();
-    } catch (err) {
-      console.error(err);
-      setError("Network error. Please try again.");
+    } catch {
+      setError("Failed to save preferences.");
     } finally {
       setLoading(false);
     }
@@ -62,14 +70,9 @@ function Onboarding() {
 
   const toggle = (id: InterestId) => {
     setInterests((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
   };
-
-  useEffect(() => {
-    const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.documentElement.classList.add(isDarkMode ? "dark" : "light");
-  }, []);
 
   return (
     <div className="relative flex w-full items-center justify-center bg-white dark:bg-black">
@@ -138,7 +141,11 @@ function Onboarding() {
               </button>
             </div>
           ) : null}
-          {error && <p className="text-red-500 mt-2">{error || "Something went wrong!"}</p>}
+          {error && (
+            <p className="text-red-500 mt-2">
+              {error || "Something went wrong!"}
+            </p>
+          )}
         </div>
 
         <div className="text-text-muted text-sm">
