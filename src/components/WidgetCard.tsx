@@ -12,10 +12,11 @@ import { getCurrentSite, SiteConfig } from "../utils/site-detect";
 import TicTacToe from "./games/tic-tac-toe";
 import FlipTiles from "./games/flip-tiles";
 import ReflexTest from "./games/reflex-test";
+import GeneralKnowledge from "./generalKnowledge/general-knowledge";
 
 type Card = {
   title: string;
-  content: string;
+  content?: string;
   component?: JSX.Element;
 };
 
@@ -61,14 +62,8 @@ const DATA_DECKS: Record<SupportedCategory, Card[]> = {
   ],
   generalKnowledge: [
     {
-      title: "Fact",
-      content:
-        "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly good to eat.",
-    },
-    {
-      title: "Trivia",
-      content:
-        "The shortest war in history was between Britain and Zanzibar on August 27, 1896. Zanzibar surrendered after 38 minutes.",
+      title: "Random Facts",
+      component: <GeneralKnowledge />,
     },
   ],
   finance: [
@@ -139,7 +134,7 @@ export default function WidgetCard({ category }: WidgetCardProps) {
   }, [mappedCategory]);
 
   return (
-    <div className="bg-slate-800/90 backdrop-blur-md p-6 rounded-2xl border border-slate-700 shadow-2xl w-4/5 animate-fade-in mx-auto">
+    <div className="bg-slate-800/90 backdrop-blur-md p-6 rounded-2xl border border-slate-700 shadow-2xl w-[55%] animate-fade-in mx-auto">
       <div className="flex items-center gap-3 mb-4">
         <div className="p-3 bg-slate-700 rounded-full">
           {ICONS[mappedCategory]}
@@ -150,7 +145,9 @@ export default function WidgetCard({ category }: WidgetCardProps) {
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-white text-2xl font-bold text-center mb-4">{card.title}</h4>
+        <h4 className="text-white text-2xl font-bold text-center mb-4">
+          {card.title}
+        </h4>
         {card.component}
       </div>
 

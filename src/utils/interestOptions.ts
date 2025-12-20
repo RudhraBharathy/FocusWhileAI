@@ -32,5 +32,6 @@ export const INTEREST_OPTIONS: InterestOption[] = [
 ];
 
 export const DEFAULT_SELECTED: InterestId[] = [
-  "games"
+  "games",
+  "generalKnowledge"
 ] as const;
