@@ -7,6 +7,10 @@
   font-style: normal;
 }
 
+button {
+  cursor: pointer !important;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {

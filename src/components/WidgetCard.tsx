@@ -1,6 +1,5 @@
 import { JSX, useMemo } from "react";
 import {
-  TrendingUp,
   Coffee,
   Gamepad2,
   Brain,
@@ -13,6 +12,9 @@ import TicTacToe from "./games/tic-tac-toe";
 import FlipTiles from "./games/flip-tiles";
 import ReflexTest from "./games/reflex-test";
 import GeneralKnowledge from "./generalKnowledge/general-knowledge";
+import ProductivityTip from "./productivity/productivity-tip";
+import SpeedMath from "./productivity/speed-math";
+import SpeedTyping from "./productivity/speed-typing";
 
 type Card = {
   title: string;
@@ -28,7 +30,6 @@ type WidgetCardProps = {
 type SupportedCategory =
   | "games"
   | "generalKnowledge"
-  | "finance"
   | "productivity"
   | "technology"
   | "mindfulness";
@@ -36,7 +37,6 @@ type SupportedCategory =
 const CATEGORY_MAP: Record<InterestId, SupportedCategory> = {
   productivity: "productivity",
   technology: "technology",
-  finance: "finance",
   mindfulness: "mindfulness",
   generalKnowledge: "generalKnowledge",
   games: "games",
@@ -66,31 +66,18 @@ const DATA_DECKS: Record<SupportedCategory, Card[]> = {
       component: <GeneralKnowledge />,
     },
   ],
-  finance: [
-    {
-      title: "Rule of 72",
-      content:
-        "Divide 72 by the interest rate to see how many years it takes to double your money.",
-    },
-    {
-      title: "Market",
-      content: "S&P 500 is technically a 'market-cap weighted' index.",
-    },
-  ],
   productivity: [
     {
-      title: "JS Tip",
-      content:
-        "Use `console.table(array)` to view data as a clean table instead of a list.",
+      title: "Productivity Tip",
+      component: <ProductivityTip />,
     },
     {
-      title: "Regex",
-      content: "/^[^@]+@[^@]+.[^@]+$/ checks for basic email validity.",
+      title: "Speed Math",
+      component: <SpeedMath />,
     },
     {
-      title: "React",
-      content:
-        "The `useId` hook generates unique IDs for accessibility attributes.",
+      title: "Speed Typing",
+      component: <SpeedTyping />,
     },
   ],
   technology: [
@@ -119,7 +106,6 @@ const DATA_DECKS: Record<SupportedCategory, Card[]> = {
 const ICONS: Record<SupportedCategory, JSX.Element> = {
   games: <Gamepad2 className="w-6 h-6 text-purple-400" />,
   generalKnowledge: <Brain className="w-6 h-6 text-blue-400" />,
-  finance: <TrendingUp className="w-6 h-6 text-green-400" />,
   productivity: <ChartNoAxesCombined className="w-6 h-6 text-indigo-400" />,
   technology: <CodeXml className="w-6 h-6 text-cyan-400" />,
   mindfulness: <Coffee className="w-6 h-6 text-orange-400" />,
@@ -144,12 +130,7 @@ export default function WidgetCard({ category }: WidgetCardProps) {
         </h3>
       </div>
 
-      <div className="space-y-2">
-        <h4 className="text-white text-2xl font-bold text-center mb-4">
-          {card.title}
-        </h4>
-        {card.component}
-      </div>
+      <div className="space-y-2">{card.component}</div>
 
       <div className="mt-6 pt-4 border-t border-slate-700 flex justify-between text-xs text-slate-500">
         <span>FocusWhileAI</span>

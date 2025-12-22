@@ -1,7 +1,6 @@
 import {
   ChartNoAxesCombined,
   CodeXml,
-  TrendingUp,
   Coffee,
   Brain,
   Gamepad2,
@@ -11,7 +10,6 @@ import type { LucideIcon } from "lucide-react";
 export type InterestId =
   | "games"
   | "generalKnowledge"
-  | "finance"
   | "productivity"
   | "technology"
   | "mindfulness";
@@ -25,7 +23,6 @@ export type InterestOption = {
 export const INTEREST_OPTIONS: InterestOption[] = [
   { id: "productivity", label: "Productivity", icon: ChartNoAxesCombined },
   { id: "technology", label: "Technology", icon: CodeXml },
-  { id: "finance", label: "Finance & Market", icon: TrendingUp },
   { id: "mindfulness", label: "Mindfulness", icon: Coffee },
   { id: "generalKnowledge", label: "General Knowledge", icon: Brain },
   { id: "games", label: "Games", icon: Gamepad2 },
@@ -33,5 +30,5 @@ export const INTEREST_OPTIONS: InterestOption[] = [
 
 export const DEFAULT_SELECTED: InterestId[] = [
   "games",
-  "generalKnowledge"
+  "productivity",
 ] as const;
