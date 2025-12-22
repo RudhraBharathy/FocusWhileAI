@@ -16,8 +16,10 @@ import ProductivityTip from "./productivity/productivity-tip";
 import SpeedMath from "./productivity/speed-math";
 import SpeedTyping from "./productivity/speed-typing";
 import TechNews from "./technology/tech-news";
-import ShortcutTrainer from "./technology/llm-prompt-tips";
 import LlmPromptTips from "./technology/llm-prompt-tips";
+import EyeYoga from "./mindfulness/eye-yoga";
+import StoicQuote from "./mindfulness/stoic-quote";
+import BoxBreathing from "./mindfulness/box-breathing";
 
 type Card = {
   title: string;
@@ -84,10 +86,10 @@ const DATA_DECKS: Record<SupportedCategory, Card[]> = {
     },
   ],
   technology: [
-    // {
-    //   title: "Tech Tip",
-    //   component: <TechNews />,
-    // },
+    {
+      title: "Tech Tip",
+      component: <TechNews />,
+    },
     {
       title: "LLM Prompt Tip",
       component: <LlmPromptTips />,
@@ -95,12 +97,16 @@ const DATA_DECKS: Record<SupportedCategory, Card[]> = {
   ],
   mindfulness: [
     {
-      title: "Breathe",
-      content: "Inhale for 4 seconds... Hold for 4... Exhale for 4.",
+      title: "Eye Yoga",
+      component: <EyeYoga />,
     },
     {
-      title: "Focus",
-      content: "Multitasking drops IQ by 10 points. Stay on this one task.",
+      title: "Stoic Quote",
+      component: <StoicQuote />,
+    },
+    {
+      title: "Box Breathing",
+      component: <BoxBreathing />,
     },
   ],
 };

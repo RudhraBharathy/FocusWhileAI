@@ -27,5 +27,10 @@
     }
   ],
   "permissions": ["storage"],
-  "host_permissions": ["https://api.coindesk.com/*"]
+  "host_permissions": [
+    "https://stoic.tekloon.net/*",
+    "https://api.adviceslip.com/*",
+    "https://hacker-news.firebaseio.com/*",
+    "https://api.wikimedia.org/*"
+  ]
 }
