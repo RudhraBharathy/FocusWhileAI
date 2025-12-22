@@ -15,6 +15,9 @@ import GeneralKnowledge from "./generalKnowledge/general-knowledge";
 import ProductivityTip from "./productivity/productivity-tip";
 import SpeedMath from "./productivity/speed-math";
 import SpeedTyping from "./productivity/speed-typing";
+import TechNews from "./technology/tech-news";
+import ShortcutTrainer from "./technology/llm-prompt-tips";
+import LlmPromptTips from "./technology/llm-prompt-tips";
 
 type Card = {
   title: string;
@@ -81,14 +84,13 @@ const DATA_DECKS: Record<SupportedCategory, Card[]> = {
     },
   ],
   technology: [
+    // {
+    //   title: "Tech Tip",
+    //   component: <TechNews />,
+    // },
     {
-      title: "Tech Tip",
-      content:
-        "Use `Array.from()` to convert array-like objects into real arrays.",
-    },
-    {
-      title: "Web Dev",
-      content: "CSS Grid is more powerful than Flexbox for complex layouts.",
+      title: "LLM Prompt Tip",
+      component: <LlmPromptTips />,
     },
   ],
   mindfulness: [
