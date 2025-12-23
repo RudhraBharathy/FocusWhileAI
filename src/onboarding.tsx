@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { cn } from "./lib/utils";
+import { cn } from "./utils/utils";
 import "./index.css";
 import Option from "./components/Option";
 import { ArrowRight } from "lucide-react";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "./services/firebase";
 import {
   INTEREST_OPTIONS,
   DEFAULT_SELECTED,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import WidgetCard from "./WidgetCard";
-import { getCurrentSite, isAIThinking } from "../utils/site-detect";
-import type { SiteConfig } from "../utils/site-detect";
+import { getCurrentSite, isAIThinking } from "../utils/siteDetect";
+import type { SiteConfig } from "../utils/siteDetect";
 import { DEFAULT_SELECTED, type InterestId } from "../utils/interestOptions";
 
 export default function Overlay() {

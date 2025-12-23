@@ -7,7 +7,7 @@ import {
   CodeXml,
 } from "lucide-react";
 import type { InterestId } from "../utils/interestOptions";
-import { getCurrentSite, SiteConfig } from "../utils/site-detect";
+import { getCurrentSite, SiteConfig } from "../utils/siteDetect";
 import TicTacToe from "./games/tic-tac-toe";
 import FlipTiles from "./games/flip-tiles";
 import ReflexTest from "./games/reflex-test";
