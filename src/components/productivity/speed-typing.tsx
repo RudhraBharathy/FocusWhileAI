@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshCw, Trophy, Type } from "lucide-react";
 import { motion } from "framer-motion";
-import { TYPING_SENTENCES } from "../../data/typingSentences";
+import { TYPING_SENTENCES } from "@/data/typingSentences";
 import {
   loadLocalHighScore,
   saveLocalHighScore,
-} from "../../utils/highScoreStorage";
+} from "@/utils/highScoreStorage";
 
 const SPEED_TYPING_BEST_WPM_STORAGE_KEY = "speed_typing_best_wpm";
 

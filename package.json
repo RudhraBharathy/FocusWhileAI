@@ -19,13 +19,13 @@
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^2.0.0-beta.23",
+    "@crxjs/vite-plugin": "^2.3.0",
     "@tailwindcss/vite": "^4.0.0",
     "@types/chrome": "^0.1.32",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^5.9.3",
-    "vite": "^5.0.8"
+    "vite": "^6.3.5"
   }
 }

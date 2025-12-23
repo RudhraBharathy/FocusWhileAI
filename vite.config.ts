@@ -7,6 +7,9 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), crx({ manifest })],
+
+  resolve: { alias: { "@": resolve(__dirname, "src") } },
+
   server: {
     port: 5173,
     strictPort: true,
@@ -23,12 +26,6 @@ export default defineConfig({
         onboarding: resolve(__dirname, "onboarding.html"),
         popup: resolve(__dirname, "index.html"),
       },
-      output: {
-        manualChunks: undefined,
-      },
-    },
-    commonjsOptions: {
-      include: [/node_modules/],
     },
   },
   optimizeDeps: {

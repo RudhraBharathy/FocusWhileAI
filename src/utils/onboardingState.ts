@@ -1,6 +1,6 @@
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../services/firebase";
-import { DEFAULT_SELECTED, type InterestId } from "../utils/interestOptions";
+import { db } from "@/services/firebase";
+import { DEFAULT_SELECTED, type InterestId } from "@/utils/interestOptions";
 
 export type OnboardingState = "not_started" | "username_set" | "completed";
 

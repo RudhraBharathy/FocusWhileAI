@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Overlay from './components/Overlay';
+import Overlay from '@/components/Overlay';
 import styleText from './index.css?inline';
 
 console.log("[FocusWhileAI] Content script loaded.");

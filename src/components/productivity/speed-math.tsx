@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   loadLocalHighScore,
   saveLocalHighScore,
-} from "../../utils/highScoreStorage";
+} from "@/utils/highScoreStorage";
 
 type GameState = "menu" | "playing" | "gameover";
 

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { X, Circle, RotateCcw, User, Cpu, Trophy } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getStorage } from "../../utils/getLocalStorage";
+import { getStorage } from "@/utils/getLocalStorage";
 
 type Player = "X" | "O" | null;
 interface Scores {

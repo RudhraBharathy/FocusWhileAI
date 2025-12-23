@@ -31,7 +31,7 @@ import {
 import {
   loadLocalHighScore,
   saveLocalHighScore,
-} from "../../utils/highScoreStorage";
+} from "@/utils/highScoreStorage";
 
 const ALL_ICONS = [
   Ghost,

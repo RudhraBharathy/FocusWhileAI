@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Sparkles, Copy, RefreshCw, Check, Terminal } from "lucide-react";
-import { PROMPTS } from "../../data/llmPrompts";
+import { PROMPTS } from "@/data/llmPrompts";
 
 export default function LlmPromptTips() {
   const [index, setIndex] = useState(() =>
