@@ -2,6 +2,12 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { RefreshCw, Trophy, Type } from "lucide-react";
 import { motion } from "framer-motion";
 import { TYPING_SENTENCES } from "../../data/typingSentences";
+import {
+  loadLocalHighScore,
+  saveLocalHighScore,
+} from "../../utils/highScoreStorage";
+
+const SPEED_TYPING_BEST_WPM_STORAGE_KEY = "speed_typing_best_wpm";
 
 export default function SpeedTyping() {
   const [target, setTarget] = useState("");
@@ -24,8 +30,7 @@ export default function SpeedTyping() {
   const currentWordCount = useMemo(() => input.split(" ").length - 1, [input]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("speedTyping-best-wpm");
-    if (saved) setBestWpm(parseInt(saved, 10));
+    loadLocalHighScore(SPEED_TYPING_BEST_WPM_STORAGE_KEY, setBestWpm);
     reset();
   }, []);
 
@@ -102,7 +107,7 @@ export default function SpeedTyping() {
         if (finalWpm > bestWpm) {
           setBestWpm(finalWpm);
           setIsNewBest(true);
-          localStorage.setItem("speedTyping-best-wpm", finalWpm.toString());
+          saveLocalHighScore(SPEED_TYPING_BEST_WPM_STORAGE_KEY, finalWpm);
         }
       }
     }

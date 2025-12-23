@@ -8,6 +8,10 @@ import {
   Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  loadLocalHighScore,
+  saveLocalHighScore,
+} from "../../utils/highScoreStorage";
 
 type GameState = "idle" | "waiting" | "ready" | "result" | "early";
 
@@ -17,7 +21,7 @@ interface Rank {
   messages: string[];
 }
 
-const STORAGE_KEY = "reflex_highscore";
+const REFELX_TEST_STORAGE_KEY = "reflex_test_best_score";
 
 const GET_RANK = (ms: number): Rank => {
   if (ms < 140)
@@ -128,11 +132,6 @@ const GET_RANK = (ms: number): Rank => {
   };
 };
 
-const getStorage = () =>
-  typeof chrome !== "undefined" && chrome.storage?.local
-    ? chrome.storage.local
-    : null;
-
 export default function ReflexTest() {
   const [state, setState] = useState<GameState>("idle");
   const [score, setScore] = useState<number>(0);
@@ -145,15 +144,7 @@ export default function ReflexTest() {
   const startTimeRef = useRef<number>(0);
 
   useEffect(() => {
-    const storage = getStorage();
-    if (storage) {
-      storage.get([STORAGE_KEY], (res: Record<string, number>) => {
-        if (res[STORAGE_KEY]) setHighScore(res[STORAGE_KEY]);
-      });
-    } else {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setHighScore(parseInt(saved));
-    }
+    loadLocalHighScore(REFELX_TEST_STORAGE_KEY, setHighScore);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -164,9 +155,7 @@ export default function ReflexTest() {
     if (!highScore || newTime < highScore) {
       setHighScore(newTime);
       setIsNewRecord(true);
-      const storage = getStorage();
-      if (storage) storage.set({ [STORAGE_KEY]: newTime });
-      else localStorage.setItem(STORAGE_KEY, newTime.toString());
+      saveLocalHighScore(REFELX_TEST_STORAGE_KEY, newTime);
     } else {
       setIsNewRecord(false);
     }

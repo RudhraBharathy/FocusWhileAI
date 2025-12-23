@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { X, Circle, RotateCcw, User, Cpu, Trophy } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getStorage } from "../../utils/getLocalStorage";
 
 type Player = "X" | "O" | null;
 interface Scores {
@@ -12,7 +13,7 @@ interface WinState {
   combination: number[] | null;
 }
 
-const STORAGE_KEY = "tic_tac_toe_scores";
+const TIC_TAC_TOE_STORAGE_KEY = "tic_tac_toe_scores";
 const WINNING_COMBOS = [
   [0, 1, 2],
   [3, 4, 5],
@@ -24,11 +25,6 @@ const WINNING_COMBOS = [
   [2, 4, 6],
 ];
 
-const getStorage = () =>
-  typeof chrome !== "undefined" && chrome.storage?.local
-    ? chrome.storage.local
-    : null;
-
 export default function TicTacToeEnhanced() {
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
   const [userPlayer, setUserPlayer] = useState<"X" | "O">("X");
@@ -39,13 +35,13 @@ export default function TicTacToeEnhanced() {
   useEffect(() => {
     const storage = getStorage();
     if (storage) {
-      storage.get([STORAGE_KEY], (res) => {
-        if (res[STORAGE_KEY]) {
-          setScores(res[STORAGE_KEY] as Scores);
+      storage.get([TIC_TAC_TOE_STORAGE_KEY], (res) => {
+        if (res[TIC_TAC_TOE_STORAGE_KEY]) {
+          setScores(res[TIC_TAC_TOE_STORAGE_KEY] as Scores);
         }
       });
     } else {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(TIC_TAC_TOE_STORAGE_KEY);
       if (saved) setScores(JSON.parse(saved));
     }
   }, []);
@@ -58,8 +54,9 @@ export default function TicTacToeEnhanced() {
     setScores(newScores);
 
     const storage = getStorage();
-    if (storage) storage.set({ [STORAGE_KEY]: newScores });
-    else localStorage.setItem(STORAGE_KEY, JSON.stringify(newScores));
+    if (storage) storage.set({ [TIC_TAC_TOE_STORAGE_KEY]: newScores });
+    else
+      localStorage.setItem(TIC_TAC_TOE_STORAGE_KEY, JSON.stringify(newScores));
   };
 
   const checkWinner = (currentBoard: Player[]) => {
@@ -340,10 +337,7 @@ function ScoreCard({
       {active && (
         <motion.div
           layoutId="active-indicator"
-          className={`mt-2 w-1.5 h-1.5 rounded-full ${color.replace(
-            "text-",
-            "bg-"
-          )}`}
+          className={`mt-2 rounded-full ${color.replace("text-", "bg-")}`}
         />
       )}
     </div>

@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Trophy, Zap, RotateCcw, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  loadLocalHighScore,
+  saveLocalHighScore,
+} from "../../utils/highScoreStorage";
 
 type GameState = "menu" | "playing" | "gameover";
+
+const SPEED_MATH_STORAGE_KEY = "speed_math_high_score";
 
 export default function SpeedMath() {
   const [gameState, setGameState] = useState<GameState>("menu");
@@ -18,8 +24,7 @@ export default function SpeedMath() {
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("speedMath-highscore");
-    if (saved) setHighScore(parseInt(saved, 10));
+    loadLocalHighScore(SPEED_MATH_STORAGE_KEY, setHighScore);
   }, []);
 
   const generateQuestion = (currentScore: number) => {
@@ -93,7 +98,7 @@ export default function SpeedMath() {
     setGameState("gameover");
     if (score > highScore) {
       setHighScore(score);
-      localStorage.setItem("speedMath-highscore", score.toString());
+      saveLocalHighScore(SPEED_MATH_STORAGE_KEY, score);
     }
   };
 

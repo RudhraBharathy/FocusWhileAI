@@ -28,6 +28,10 @@ import {
   RefreshCw,
   CheckCircle2,
 } from "lucide-react";
+import {
+  loadLocalHighScore,
+  saveLocalHighScore,
+} from "../../utils/highScoreStorage";
 
 const ALL_ICONS = [
   Ghost,
@@ -57,7 +61,7 @@ const ALL_ICONS = [
 ];
 
 const PAIRS_COUNT = 10;
-const STORAGE_KEY = "memory_game_best_score";
+const FLIP_TILES_STORAGE_KEY = "flip_tiles_best_score";
 
 type CardType = {
   id: number;
@@ -65,11 +69,6 @@ type CardType = {
   isFlipped: boolean;
   isMatched: boolean;
 };
-
-const getStorage = () =>
-  typeof chrome !== "undefined" && chrome.storage?.local
-    ? chrome.storage.local
-    : null;
 
 export default function FlipTiles() {
   const [cards, setCards] = useState<CardType[]>([]);
@@ -81,19 +80,7 @@ export default function FlipTiles() {
 
   useEffect(() => {
     initializeGame();
-
-    const storage = getStorage();
-
-    if (storage) {
-      storage.get([STORAGE_KEY], (res) => {
-        if (typeof res[STORAGE_KEY] === "number") {
-          setBestScore(res[STORAGE_KEY]);
-        }
-      });
-    } else {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setBestScore(parseInt(saved));
-    }
+    loadLocalHighScore(FLIP_TILES_STORAGE_KEY, setBestScore);
   }, []);
 
   const initializeGame = () => {
@@ -163,13 +150,7 @@ export default function FlipTiles() {
 
     if (!bestScore || score < bestScore) {
       setBestScore(score);
-
-      const storage = getStorage();
-      if (storage) {
-        storage.set({ [STORAGE_KEY]: score });
-      } else {
-        localStorage.setItem(STORAGE_KEY, score.toString());
-      }
+      saveLocalHighScore(FLIP_TILES_STORAGE_KEY, score);
     }
   };
 
