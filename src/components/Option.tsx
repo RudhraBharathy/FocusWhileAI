@@ -1,46 +1,60 @@
 import { cn } from "@/utils/utils";
 
+type OptionVariant = "onboarding" | "popup";
+
+const STYLES: Record<
+  OptionVariant,
+  {
+    root: string;
+    icon: string;
+    label: string;
+  }
+> = {
+  onboarding: {
+    root: "px-5 py-3 gap-3",
+    icon: "size-10",
+    label: "text-sm",
+  },
+  popup: {
+    root: "px-3 py-2 gap-3",
+    icon: "size-8 p-1.5",
+    label: "text-xs text-left",
+  },
+};
+
 const Option = ({
   label,
   icon,
   active,
   onClick,
+  variant = "onboarding",
 }: {
   label: string;
   icon: React.ReactNode;
   active: boolean;
   onClick: () => void;
+  variant?: OptionVariant;
 }) => {
+  const styles = STYLES[variant];
+
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        "group relative flex items-center gap-3 px-5 py-3 rounded-2xl",
+        "group relative flex items-center rounded-2xl",
         "border transition-all duration-300 ease-out",
         "cursor-pointer select-none",
+        styles.root,
         active
-          ? [
-              "border-brand-accent",
-              "bg-linear-to-br from-brand-accent/15 to-brand-accent/5",
-              "ring-1 ring-brand-accent/40",
-              "shadow-[0_0_14px_var(--color-brand-glow)]",
-              "scale-[1.03]",
-            ].join(" ")
-          : [
-              "border-brand-accent/60",
-              "bg-transparent",
-              "hover:border-brand-accent",
-              "hover:bg-brand-accent/5",
-              "hover:shadow-[0_0_10px_var(--color-brand-glow)]",
-              "hover:scale-[1.01]",
-            ].join(" ")
+          ? "border-brand-accent bg-linear-to-br from-brand-accent/15 to-brand-accent/5 ring-1 ring-brand-accent/40 shadow-[0_0_14px_var(--color-brand-glow)] scale-[1.03]"
+          : "border-brand-accent/60 bg-transparent hover:border-brand-accent hover:bg-brand-accent/5 hover:shadow-[0_0_10px_var(--color-brand-glow)] hover:scale-[1.01]"
       )}
     >
       <div
         className={cn(
-          "flex items-center justify-center size-10 rounded-full",
-          "transition-all duration-300",
+          "flex items-center justify-center rounded-full transition-all duration-300",
+          styles.icon,
           active
             ? "bg-brand-accent text-black shadow-sm"
             : "bg-brand-accent/90 text-black group-hover:bg-brand-accent group-hover:scale-105"
@@ -51,7 +65,8 @@ const Option = ({
 
       <span
         className={cn(
-          "text-sm font-medium tracking-wide transition-colors duration-300",
+          "font-medium tracking-wide transition-colors duration-300",
+          styles.label,
           active
             ? "text-text-main"
             : "text-text-muted group-hover:text-text-main"

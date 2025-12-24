@@ -8,9 +8,9 @@ import {
 import type { LucideIcon } from "lucide-react";
 
 export type InterestId =
+  | "productivity"
   | "games"
   | "generalKnowledge"
-  | "productivity"
   | "technology"
   | "mindfulness";
 
@@ -22,10 +22,10 @@ export type InterestOption = {
 
 export const INTEREST_OPTIONS: InterestOption[] = [
   { id: "productivity", label: "Productivity", icon: ChartNoAxesCombined },
+  { id: "games", label: "Games", icon: Gamepad2 },
   { id: "technology", label: "Technology", icon: CodeXml },
   { id: "mindfulness", label: "Mindfulness", icon: Coffee },
   { id: "generalKnowledge", label: "General Knowledge", icon: Brain },
-  { id: "games", label: "Games", icon: Gamepad2 },
 ];
 
 export const DEFAULT_SELECTED: InterestId[] = [
