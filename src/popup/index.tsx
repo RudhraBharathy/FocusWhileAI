@@ -15,9 +15,18 @@ import Background from "@/components/Background";
 const INTERESTS_KEY = "interests";
 const USERNAME_KEY = "username";
 
+const areInterestsEqual = (a: InterestId[], b: InterestId[]) => {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+};
+
 function Popup() {
   const [ready, setReady] = useState(false);
   const [interests, setInterests] = useState<InterestId[]>(DEFAULT_SELECTED);
+  const [initialInterests, setInitialInterests] = useState<InterestId[]>([]);
   const [saving, setSaving] = useState(false);
   const [completedOnboarding, setCompletedOnboarding] = useState(false);
   const [hasSaved, setHasSaved] = useState(false);
@@ -30,6 +39,7 @@ function Popup() {
       const stored = res[INTERESTS_KEY];
       if (Array.isArray(stored)) {
         setInterests(stored as InterestId[]);
+        setInitialInterests(stored as InterestId[]);
       }
       setReady(true);
     });
@@ -41,12 +51,13 @@ function Popup() {
     );
   };
 
+  const hasChanges = !areInterestsEqual(initialInterests, interests);
+
   const saveInterests = async () => {
-    if (saving) return;
+    if (saving || !hasChanges) return;
+
     setSaving(true);
     setHasSaved(false);
-
-    chrome.storage.local.set({ [INTERESTS_KEY]: interests });
 
     chrome.storage.local.get([USERNAME_KEY], async (res) => {
       const username = res[USERNAME_KEY];
@@ -61,15 +72,20 @@ function Popup() {
       try {
         const ref = doc(db, "users", username);
         const snap = await getDoc(ref);
-        if (snap.exists()) {
+
+        if (snap.exists() && !areInterestsEqual(initialInterests, interests)) {
           await updateDoc(ref, {
             interests,
             onboardingCompletedAt: serverTimestamp(),
           });
+
           setCompletedOnboarding(true);
+          setInitialInterests(interests);
         } else {
           setCompletedOnboarding(false);
         }
+
+        chrome.storage.local.set({ [INTERESTS_KEY]: interests });
       } finally {
         setSaving(false);
         setHasSaved(true);
@@ -77,9 +93,7 @@ function Popup() {
     });
   };
 
-  if (!ready) {
-    return <div className="w-full h-full" />;
-  }
+  if (!ready) return <div className="w-full h-full" />;
 
   return (
     <Background>
@@ -109,11 +123,11 @@ function Popup() {
 
         <button
           onClick={saveInterests}
-          disabled={saving}
+          disabled={saving || !hasChanges}
           className={cn(
             "mt-4 rounded-full py-2 text-sm font-medium transition w-1/2 self-center",
             "bg-linear-to-br from-gray-50 to-gray-400 text-gray-900",
-            saving ? "opacity-60 pointer-events-none" : ""
+            saving || !hasChanges ? "opacity-50 pointer-events-none" : ""
           )}
         >
           {saving ? "Saving..." : "Save Interests"}
