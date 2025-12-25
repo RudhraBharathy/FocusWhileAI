@@ -26,9 +26,35 @@ function Onboarding() {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    saveInitialState();
-    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.documentElement.classList.add(isDark ? "dark" : "light");
+    const init = async () => {
+      await saveInitialState();
+
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.add(isDark ? "dark" : "light");
+
+      const stored = (await chrome.storage.local.get([
+        "onboardingState",
+        "username",
+        "interests",
+      ])) as {
+        onboardingState?: string;
+        username?: string;
+        interests?: InterestId[];
+      };
+
+      if (stored.username) setUsername(stored.username);
+      if (stored.interests) setInterests(stored.interests);
+
+      if (stored.onboardingState === "username_set") {
+        setStep(2);
+      }
+
+      if (stored.onboardingState === "completed") {
+        window.close();
+      }
+    };
+
+    init();
   }, []);
 
   const canonicalUsername = useMemo(
