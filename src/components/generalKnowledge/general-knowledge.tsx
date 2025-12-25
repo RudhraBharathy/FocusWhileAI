@@ -40,9 +40,7 @@ export default function GeneralKnowledge() {
     const dd = String(date.getDate()).padStart(2, "0");
 
     try {
-      const response = await fetch(
-        `${WIKIPEDIA_API_URL}${mm}/${dd}`
-      );
+      const response = await fetch(`${WIKIPEDIA_API_URL}${mm}/${dd}`);
       const data = await response.json();
       const event =
         data.selected[Math.floor(Math.random() * data.selected.length)];
@@ -70,11 +68,9 @@ export default function GeneralKnowledge() {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 text-brand-cyan">
+        <div className="flex items-center gap-2 text-white">
           <Lightbulb className="w-5 h-5" />
-          <h3 className="font-bold text-lg tracking-wide text-white">
-            Did You Know?
-          </h3>
+          <h3 className="font-bold text-lg tracking-wide">Did You Know?</h3>
         </div>
 
         <button
@@ -120,9 +116,9 @@ export default function GeneralKnowledge() {
 
             {historyEvent && (
               <div>
-                <div className="flex items-center gap-2 text-brand-cyan mb-4">
+                <div className="flex items-center gap-2 text-brand-cyan mb-4 text-white">
                   <CalendarDays className="w-5 h-5" />
-                  <h3 className="font-bold text-lg tracking-wide text-white">
+                  <h3 className="font-bold text-lg tracking-wide">
                     On This Day
                   </h3>
                 </div>

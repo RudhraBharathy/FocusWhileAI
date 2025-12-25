@@ -2,7 +2,7 @@ import { cn } from "@/utils/utils";
 
 const Background = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative flex w-full items-center justify-center bg-white dark:bg-black">
+    <div className="relative flex w-full items-center justify-center bg-slate-50 dark:bg-black min-h-screen">
       <div
         className={cn(
           "absolute inset-0",

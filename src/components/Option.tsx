@@ -47,8 +47,21 @@ const Option = ({
         "cursor-pointer select-none",
         styles.root,
         active
-          ? "border-brand-accent bg-linear-to-br from-brand-accent/15 to-brand-accent/5 ring-1 ring-brand-accent/40 shadow-[0_0_14px_var(--color-brand-glow)] scale-[1.03]"
-          : "border-brand-accent/60 bg-transparent hover:border-brand-accent hover:bg-brand-accent/5 hover:shadow-[0_0_10px_var(--color-brand-glow)] hover:scale-[1.01]"
+          ? cn(
+              "border-brand-accent",
+              "bg-brand-accent/10 dark:bg-brand-accent/15",
+              "ring-1 ring-brand-accent/40",
+              "shadow-[0_0_14px_var(--color-brand-glow)]",
+              "scale-[1.03]"
+            )
+          : cn(
+              "border-black/20 dark:border-brand-accent/60",
+              "bg-transparent",
+              "hover:border-brand-accent",
+              "hover:bg-brand-accent/5",
+              "hover:shadow-[0_0_10px_var(--color-brand-glow)]",
+              "hover:scale-[1.01]"
+            )
       )}
     >
       <div
@@ -56,8 +69,13 @@ const Option = ({
           "flex items-center justify-center rounded-full transition-all duration-300",
           styles.icon,
           active
-            ? "bg-brand-accent text-black shadow-sm"
-            : "bg-brand-accent/90 text-black group-hover:bg-brand-accent group-hover:scale-105"
+            ? cn("bg-brand-accent", "text-black", "shadow-sm")
+            : cn(
+                "bg-brand-accent/80 dark:bg-brand-accent/90",
+                "text-gray-700",
+                "group-hover:bg-brand-accent",
+                "group-hover:scale-105"
+              )
         )}
       >
         {icon}
@@ -68,8 +86,8 @@ const Option = ({
           "font-medium tracking-wide transition-colors duration-300",
           styles.label,
           active
-            ? "text-text-main"
-            : "text-text-muted group-hover:text-text-main"
+            ? "text-gray-900 dark:text-text-main"
+            : "text-gray-600 dark:text-text-muted group-hover:text-gray-900 dark:group-hover:text-text-main"
         )}
       >
         {label}

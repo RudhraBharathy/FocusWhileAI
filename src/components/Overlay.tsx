@@ -24,6 +24,8 @@ export default function Overlay() {
       const stored = result.interests as InterestId[] | undefined;
       if (stored?.length) {
         setInterests(stored);
+      } else {
+        setInterests(DEFAULT_SELECTED);
       }
     });
   }, []);

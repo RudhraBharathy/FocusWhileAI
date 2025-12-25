@@ -90,21 +90,21 @@ function Onboarding() {
       <div className="min-h-screen flex flex-col items-center justify-between pt-18 pb-8 z-20">
         <div className="flex flex-col items-center gap-6 w-full">
           <div className="w-full max-w-2xl">
-            <h1 className="text-7xl font-bold text-center mb-6">
+            <h1 className="text-center mb-6">
               <span className="relative bg-linear-to-b from-brand-glow to-brand-accent bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl">
                 Focus While AI
               </span>
             </h1>
-            <p className="text-text-main text-center text-lg">
+            <p className="text-center text-lg text-gray-700 dark:text-gray-300">
               Turn your waiting time into learning time. What keeps you in flow?
             </p>
           </div>
 
           {step === 1 && (
             <>
-              <div className="relative flex w-4/5 max-w-md items-center gap-2 rounded-full border border-white/20 bg-linear-to-br from-white/20 to-white/5 py-1.5 pl-6 pr-1.5 mt-10">
+              <div className="relative flex w-4/5 max-w-md items-center gap-2 rounded-full border border-black/30 dark:border-white/20 bg-linear-to-br from-white/80 to-white/40 dark:from-white/20 dark:to-white/5 backdrop-blur-md py-1.5 pl-6 pr-1.5 mt-10">
                 <input
-                  className="relative flex w-full py-1.5 pr-1.5 outline-none placeholder:text-gray-300 text-lg text-white bg-transparent"
+                  className="w-full bg-transparent py-1.5 pr-1.5 outline-none text-lg text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-300"
                   type="text"
                   placeholder="Enter your username"
                   value={username}
@@ -114,7 +114,7 @@ function Onboarding() {
                 <button
                   onClick={handleNext}
                   disabled={loading || !isUsernameValid}
-                  className="group flex shrink-0 items-center gap-1 rounded-full bg-linear-to-br from-gray-50 to-gray-400 px-3 py-2.5 text-sm font-medium text-gray-900 transition-transform active:scale-[0.985] disabled:opacity-50"
+                  className="group flex shrink-0 items-center gap-1 rounded-full bg-linear-to-br from-gray-900 to-gray-700 dark:from-gray-50 dark:to-gray-300 px-3 py-2.5 text-sm font-medium text-white dark:text-gray-900 transition-transform active:scale-[0.985] disabled:opacity-60"
                 >
                   <span>Get Started</span>
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -122,23 +122,24 @@ function Onboarding() {
               </div>
 
               {username.trim() && (
-                <div className="mt-4 flex flex-col items-center gap-2 text-sm">
-                  <span className="text-text-muted">Your username will be</span>
+                <div className="mt-4 flex flex-col items-center gap-2 text-base">
+                  <span className="text-gray-600 dark:text-gray-400">
+                    Your username will be
+                  </span>
 
                   <span
-                    className={`font-mono px-4 py-1 rounded-full border
-                      ${
-                        isUsernameValid
-                          ? "border-emerald-400/40 text-emerald-400 bg-emerald-400/10"
-                          : "border-red-400/40 text-red-400 bg-red-400/10"
-                      }`}
+                    className={`font-mono px-4 py-1 rounded-full border ${
+                      isUsernameValid
+                        ? "border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
+                        : "border-red-500/40 text-red-600 dark:text-red-400 bg-red-500/10"
+                    }`}
                   >
                     {canonicalUsername || "—"}
                   </span>
 
                   {!isUsernameValid && (
-                    <span className="text-xs text-red-400">
-                      3–20 chars · letters, numbers, underscores only
+                    <span className="text-base text-red-500 dark:text-red-400">
+                      3–20 characters · letters, numbers, and underscores only
                     </span>
                   )}
                 </div>
@@ -148,7 +149,7 @@ function Onboarding() {
 
           {step === 2 && (
             <div className="w-full max-w-2xl my-6 flex flex-col items-center mt-10">
-              <div className="grid grid-cols-3 gap-6 text-left">
+              <div className="grid grid-cols-3 gap-6">
                 {INTEREST_OPTIONS.map(({ id, label, icon: Icon }) => (
                   <Option
                     key={id}
@@ -163,17 +164,21 @@ function Onboarding() {
               <button
                 onClick={handleFinish}
                 disabled={loading || !interests.length}
-                className="group mt-6 w-36 rounded-full bg-linear-to-br from-gray-50 to-gray-400 px-4 py-2.5 text-xl font-medium text-gray-900 transition-transform active:scale-[0.985] disabled:opacity-50"
+                className="group mt-10 w-36 rounded-full bg-linear-to-br from-gray-900 to-gray-700 dark:from-gray-50 dark:to-gray-300 px-4 py-2.5 text-xl font-medium text-white dark:text-gray-900 transition-transform active:scale-[0.985] disabled:opacity-50"
               >
                 Let’s Go!
               </button>
             </div>
           )}
 
-          {error && <p className="text-red-500 mt-2 text-base">{error}</p>}
+          {error && (
+            <p className="text-red-600 dark:text-red-400 mt-2 text-base">
+              {error}
+            </p>
+          )}
         </div>
 
-        <div className="text-text-muted text-sm">
+        <div className="text-sm text-gray-600 dark:text-gray-400">
           Made with ❤️ by{" "}
           <a
             href="https://rudhrabharathy.github.io"

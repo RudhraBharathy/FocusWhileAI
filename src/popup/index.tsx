@@ -97,18 +97,18 @@ function Popup() {
 
   return (
     <Background>
-      <div className="relative z-10 p-8 py-6 flex flex-col gap-4">
-        <h1 className="text-3xl font-bold text-center">
-          <span className="relative bg-linear-to-b from-brand-glow to-brand-accent bg-clip-text text-transparent">
+      <div className="relative z-10 p-8 flex flex-col gap-6">
+        <h1 className="text-4xl font-bold text-center">
+          <span className="bg-linear-to-b from-brand-glow to-brand-accent bg-clip-text text-transparent">
             Focus While AI
           </span>
         </h1>
 
-        <h2 className="text-xl font-semibold text-center text-text-main mb-4">
+        <h2 className="text-xl font-semibold text-center text-gray-800 dark:text-text-main mb-2">
           Your Interests
         </h2>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-4">
           {INTEREST_OPTIONS.map(({ id, label, icon: Icon }) => (
             <Option
               key={id}
@@ -126,7 +126,8 @@ function Popup() {
           disabled={saving || !hasChanges}
           className={cn(
             "mt-4 rounded-full py-2 text-sm font-medium transition w-1/2 self-center",
-            "bg-linear-to-br from-gray-50 to-gray-400 text-gray-900",
+            "bg-linear-to-br from-gray-900 to-gray-700 text-white",
+            "dark:from-gray-50 dark:to-gray-300 dark:text-gray-900",
             saving || !hasChanges ? "opacity-50 pointer-events-none" : ""
           )}
         >
@@ -135,13 +136,13 @@ function Popup() {
 
         {hasSaved &&
           (completedOnboarding ? (
-            <p className="text-center text-white text-sm">
-              Interests updated!!
+            <p className="text-center text-sm text-emerald-600 dark:text-emerald-400">
+              Interests updated!
             </p>
           ) : (
-            <p className="text-center text-white text-sm">
-              Interests updated!! <br /> Looks like you haven't completed
-              onboarding.
+            <p className="text-center text-sm text-gray-700 dark:text-gray-300">
+              Interests updated! <br />
+              Looks like you haven&apos;t completed onboarding.
               <span
                 onClick={() =>
                   chrome.tabs.create({
@@ -149,7 +150,7 @@ function Popup() {
                     active: true,
                   })
                 }
-                className="block text-brand-accent cursor-pointer"
+                className="block mt-1 text-brand-accent cursor-pointer hover:underline"
               >
                 Click here to start
               </span>
