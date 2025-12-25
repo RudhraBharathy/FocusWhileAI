@@ -15,13 +15,6 @@ import Background from "@/components/Background";
 const INTERESTS_KEY = "interests";
 const USERNAME_KEY = "username";
 
-const areInterestsEqual = (a: InterestId[], b: InterestId[]) => {
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i++) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
-};
 
 function Popup() {
   const [ready, setReady] = useState(false);
@@ -51,7 +44,7 @@ function Popup() {
     );
   };
 
-  const hasChanges = !areInterestsEqual(initialInterests, interests);
+  const hasChanges = initialInterests.length !== interests.length || !initialInterests.every(i => interests.includes(i));
 
   const saveInterests = async () => {
     if (saving || !hasChanges) return;
@@ -73,7 +66,7 @@ function Popup() {
         const ref = doc(db, "users", username);
         const snap = await getDoc(ref);
 
-        if (snap.exists() && !areInterestsEqual(initialInterests, interests)) {
+        if (snap.exists() && (initialInterests.length !== interests.length || !initialInterests.every(i => interests.includes(i)))) {
           await updateDoc(ref, {
             interests,
             onboardingCompletedAt: serverTimestamp(),

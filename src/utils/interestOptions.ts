@@ -14,6 +14,8 @@ export type InterestId =
   | "technology"
   | "mindfulness";
 
+export type SupportedCategory = InterestId;
+
 export type InterestOption = {
   id: InterestId;
   label: string;

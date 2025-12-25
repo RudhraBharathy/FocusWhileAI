@@ -6,7 +6,7 @@ import {
   ChartNoAxesCombined,
   CodeXml,
 } from "lucide-react";
-import type { InterestId } from "@/utils/interestOptions";
+import type { InterestId, SupportedCategory } from "@/utils/interestOptions";
 import { getCurrentSite, SiteConfig } from "@/utils/siteDetect";
 import TicTacToe from "./games/tic-tac-toe";
 import FlipTiles from "./games/flip-tiles";
@@ -31,13 +31,6 @@ type WidgetCardProps = {
   category: InterestId;
   siteConfig?: SiteConfig;
 };
-
-type SupportedCategory =
-  | "games"
-  | "generalKnowledge"
-  | "productivity"
-  | "technology"
-  | "mindfulness";
 
 const CATEGORY_MAP: Record<InterestId, SupportedCategory> = {
   productivity: "productivity",
