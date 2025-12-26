@@ -10,13 +10,12 @@ import {
 export default function TechNews() {
   const [stories, setStories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const HACKER_NEWS_API_URL = import.meta.env.VITE_HACKER_NEWS_API_URL;
 
   const fetchNews = async () => {
     setLoading(true);
     try {
-      const idsRes = await fetch(
-        "https://hacker-news.firebaseio.com/v0/topstories.json"
-      );
+      const idsRes = await fetch(`${HACKER_NEWS_API_URL}/topstories.json`);
       const ids = await idsRes.json();
 
       const randomIds: any[] = [];
@@ -26,8 +25,8 @@ export default function TechNews() {
       }
 
       const storyPromises = randomIds.map((id) =>
-        fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(
-          (res) => res.json()
+        fetch(`${HACKER_NEWS_API_URL}/item/${id}.json`).then((res) =>
+          res.json()
         )
       );
 

@@ -34,6 +34,7 @@
     "https://stoic.tekloon.net/*",
     "https://api.adviceslip.com/*",
     "https://hacker-news.firebaseio.com/*",
-    "https://api.wikimedia.org/*"
+    "https://api.wikimedia.org/*",
+    "https://uselessfacts.jsph.pl/*"
   ]
 }
