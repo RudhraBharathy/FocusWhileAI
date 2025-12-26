@@ -14,7 +14,9 @@ export default function ProductivityTip() {
       const data = await res.json();
       setTip(data.slip.advice);
     } catch (e) {
+      console.error("API Error:", e);
       setTip("Focus on being productive instead of busy.");
+    } finally {
       setLoading(false);
     }
   };
