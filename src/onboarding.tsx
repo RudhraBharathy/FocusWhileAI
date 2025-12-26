@@ -118,11 +118,12 @@ function Onboarding() {
           <div className="w-full max-w-2xl">
             <h1 className="text-center mb-6">
               <span className="relative bg-linear-to-b from-brand-glow to-brand-accent bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl">
-                Focus While AI
+                FocusWhileAI
               </span>
             </h1>
             <p className="text-center text-lg text-gray-700 dark:text-gray-300">
-              Turn your waiting time into learning time. What keeps you in flow?
+              Ready to turn waiting time into intentional micro-engagement that
+              keeps you in flow?
             </p>
           </div>
 
