@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found - FocusWhileAI</title>
+  <meta name="description"
+    content="FocusWhileAI turns AI waiting time into intentional micro-engagement instead of distraction.">
+  <link rel="icon" href="./focuswhileai-logo.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <style type="text/tailwindcss">
+
+    @theme {
+
+    --animate-fade-in: fade-in 0.3s ease-out;
+    --color-brand-accent: #6bbfbe;
+    --color-brand-glow: #7afcf7;
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+    
+  </style>
+</head>
+
+<body class="bg-slate-950 text-white font-sans antialiased selection:bg-cyan-500/30">
+
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-glow/10 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-brand-accent/10 blur-[120px]"></div>
+  </div>
+
+  <main class="relative z-10 min-h-screen flex flex-col items-center justify-center p-6 text-center gap-10">
+
+    <div class="max-w-xl space-y-6 animate-fade-in">
+
+      <h1 class="font-display font-bold">
+        <span
+          class="bg-linear-to-b from-cyan-300 to-blue-600 bg-clip-text text-transparent text-8xl sm:text-9xl drop-shadow-sm">
+          404
+        </span>
+      </h1>
+
+      <h2 class="text-2xl font-bold text-white">Page Not Found</h2>
+
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Oops! The page you are looking for has vanished into the digital void.
+      </p>
+
+      <div class="pt-6">
+        <a href="/"
+          class="group relative inline-flex items-center gap-2 px-8 py-3 bg-white text-slate-950 rounded-full font-bold text-lg transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/20">
+          <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+            </path>
+          </svg>
+          <span>Return Home</span>
+        </a>
+      </div>
+
+    </div>
+
+    <footer class="mt-6 text-sm text-slate-600 space-y-2">
+      <p>Made with ❤️ by <a href="https://rudhrabharathy.github.io"
+          class="text-slate-400 hover:text-white transition-colors underline">Rudhra Bharathy</a></p>
+      <div class="flex gap-4 justify-center mt-3">
+        <a href="./privacy.html" class="hover:text-slate-400 transition-colors">Privacy Policy</a>
+        <span>•</span>
+        <a href="mailto:bharathyganeshan@gmail.com?subject=FocusWhileAI%20Support"
+          class="hover:text-slate-400 transition-colors">Support</a>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

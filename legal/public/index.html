@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="FocusWhileAI turns AI waiting time into intentional micro-engagement instead of distraction.">
+  <link rel="icon" href="./focuswhileai-logo.png" type="image/png">
+  <title>FocusWhileAI</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+
+  <style type="text/tailwindcss">
+    @theme {
+      --animate-fade-in: fade-in 0.3s ease-out;
+      --color-brand-accent: #6bbfbe;
+      --color-brand-glow: #7afcf7;
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 font-sans antialiased selection:bg-cyan-500/30 min-h-dvh">
+
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-glow/10 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-brand-accent/10 blur-[120px]"></div>
+  </div>
+
+  <a href="https://github.com/rudhrabharathy/focuswhileai" target="_blank" aria-label="GitHub Repository" class="group fixed top-4 right-0 z-20 flex items-center justify-center
+       w-14 h-12 -mr-1
+       rounded-l-3xl
+       bg-white/10 border border-white/15 backdrop-blur-md
+       hover:bg-white/20
+       transition-all duration-200">
+    <svg viewBox="0 0 24 24" class="w-6 h-6 fill-white group-hover:fill-cyan-300 transition-colors">
+      <path
+        d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.56v-2.1c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.75.41-1.27.75-1.56-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.27 1.19-3.07-.12-.29-.52-1.45.11-3.02 0 0 .97-.31 3.18 1.17a11.1 11.1 0 0 1 5.8 0c2.2-1.48 3.17-1.17 3.17-1.17.64 1.57.24 3.02.12 3.02.74.8 1.18 1.82 1.18 3.07 0 4.39-2.7 5.36-5.27 5.65.42.36.8 1.08.8 2.18v3.23c0 .31.2.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+    </svg>
+  </a>
+
+  <main class="relative z-10 min-h-dvh flex flex-col items-center justify-center gap-4 text-center px-4 py-12">
+
+    <div class="max-w-4xl space-y-6 animate-fade-in">
+
+      <div class="flex items-center justify-center gap-4">
+        <img src="./focuswhileai-logo.png" alt="FocusWhileAI Logo" class="w-16 h-16" />
+        <span
+          class="bg-linear-to-b from-brand-glow to-brand-accent bg-clip-text py-8 text-4xl font-bold text-transparent sm:text-7xl">
+          FocusWhileAI
+        </span>
+      </div>
+
+      <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        Ready to turn waiting time into intentional micro-engagement that keeps you in flow?
+      </p>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://chromewebstore.google.com/detail/focuswhileai/" target="_blank"
+          class="group relative inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-950 rounded-full font-bold text-lg transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/20">
+          <img src="./crx-logo.svg" alt="Chrome Web Store" class="w-6 h-6" />
+          <span>Add to Chrome</span>
+          <span class="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-0.5 rounded ml-2">It's Free</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-12 text-left max-w-4xl mx-auto">
+        <div
+          class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+          <div class="text-purple-400 mb-3 text-2xl">🎮</div>
+          <h3 class="font-bold text-white mb-1">Games</h3>
+          <p class="text-sm text-slate-400">Quick reflex tests & puzzles to keep you engaged.</p>
+        </div>
+
+        <div
+          class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+          <div class="text-cyan-400 mb-3 text-2xl">⚡️</div>
+          <h3 class="font-bold text-white mb-1">Productivity</h3>
+          <p class="text-sm text-slate-400">Speed math & typing tests to wake up your brain.</p>
+        </div>
+
+        <div
+          class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+          <div class="text-blue-400 mb-3 text-2xl">💻</div>
+          <h3 class="font-bold text-white mb-1">Technology</h3>
+          <p class="text-sm text-slate-400">Trending tech news & advanced LLM prompting tips.</p>
+        </div>
+
+        <div
+          class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+          <div class="text-emerald-400 mb-3 text-2xl">🧘‍♂️</div>
+          <h3 class="font-bold text-white mb-1">Mindfulness</h3>
+          <p class="text-sm text-slate-400">Stoic quotes & breathing exercises to reset your focus.</p>
+        </div>
+
+        <div
+          class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+          <div class="text-orange-400 mb-3 text-2xl">📚</div>
+          <h3 class="font-bold text-white mb-1">General Knowledge</h3>
+          <p class="text-sm text-slate-400">Historical facts and “On This Day” trivia.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-6 text-sm text-slate-600 space-y-2">
+      <p>
+        Made with ❤️ by
+        <a href="https://rudhrabharathy.github.io" class="text-slate-400 hover:text-white transition-colors underline">
+          Rudhra Bharathy
+        </a>
+      </p>
+      <div class="flex gap-4 justify-center mt-3">
+        <a href="./privacy.html" class="hover:text-slate-400 transition-colors">Privacy Policy</a>
+        <span>•</span>
+        <a href="mailto:bharathyganeshan@gmail.com?subject=FocusWhileAI%20Support"
+          class="hover:text-slate-400 transition-colors">
+          Support
+        </a>
+      </div>
+    </footer>
+
+  </main>
+</body>
+
+</html>
