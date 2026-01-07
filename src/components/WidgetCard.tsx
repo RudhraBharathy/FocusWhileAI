@@ -7,7 +7,7 @@ import {
   CodeXml,
 } from "lucide-react";
 import type { InterestId, SupportedCategory } from "@/utils/interestOptions";
-import { getCurrentSite, SiteConfig } from "@/utils/siteDetect";
+import { getCurrentSite, isAIThinking, SiteConfig } from "@/utils/siteDetect";
 import TicTacToe from "./games/tic-tac-toe";
 import FlipTiles from "./games/flip-tiles";
 import ReflexTest from "./games/reflex-test";
@@ -29,7 +29,7 @@ type Card = {
 
 type WidgetCardProps = {
   category: InterestId;
-  siteConfig?: SiteConfig;
+  siteConfig?: SiteConfig | null;
 };
 
 const CATEGORY_MAP: Record<InterestId, SupportedCategory> = {
@@ -112,8 +112,10 @@ const ICONS: Record<SupportedCategory, JSX.Element> = {
   mindfulness: <Coffee className="w-6 h-6 text-orange-400" />,
 };
 
-export default function WidgetCard({ category }: WidgetCardProps) {
+export default function WidgetCard({ category, siteConfig }: WidgetCardProps) {
   const mappedCategory = CATEGORY_MAP[category];
+
+  const siteName = getCurrentSite()?.name ?? "LLM";
 
   const card = useMemo<Card>(() => {
     const deck = DATA_DECKS[mappedCategory];
@@ -133,9 +135,13 @@ export default function WidgetCard({ category }: WidgetCardProps) {
 
       <div className="space-y-2">{card.component}</div>
 
-      <div className="mt-6 pt-4 border-t border-slate-700 flex justify-between text-xs text-slate-500">
-        <span>FocusWhileAI</span>
-        <span>{getCurrentSite()?.name || "LLM"} Generating Response...</span>
+      <div className="mt-6 pt-4 border-t border-slate-700 flex justify-between text-xs">
+        <span className="text-slate-500">FocusWhileAI</span>
+        {isAIThinking(siteConfig) ? (
+          <span className="text-slate-500">{siteName} Generating Response...</span>
+        ) : (
+          <span className="text-green-500">{siteName} Response Ready!!</span>
+        )}
       </div>
     </div>
   );

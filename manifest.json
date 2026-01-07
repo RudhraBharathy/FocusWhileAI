@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FocusWhileAI",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "FocusWhileAI turns AI waiting time into intentional micro-engagement instead of distraction.",
   "action": { 
     "default_popup": "popup.html" 

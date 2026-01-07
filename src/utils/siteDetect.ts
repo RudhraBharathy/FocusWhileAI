@@ -50,7 +50,7 @@ export function getCurrentSite(): SiteConfig | null {
   return null;
 }
 
-export function isAIThinking(siteConfig: SiteConfig | null): boolean {
+export function isAIThinking(siteConfig?: SiteConfig | null): boolean {
   if (!siteConfig) return false;
   return Boolean(document.querySelector(siteConfig.selector));
 }
