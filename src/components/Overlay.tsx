@@ -62,7 +62,7 @@ export default function Overlay() {
         className={`absolute top-4 right-4 z-50 bg-zinc-800/50 backdrop-blur-sm rounded-full p-2 transition-opacity duration-300 
           ${xbuttonVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
-        <X size={24} />
+        <X className="text-white" size={24} />
       </button>
     </div>
   );

@@ -18,31 +18,50 @@ export const saveInitialState = async () => {
   });
 };
 
-export const saveUsername = async (username: string) => {
-  const stored = await chrome.storage.local.get("userId");
-  const userId = stored.userId ?? crypto.randomUUID();
-
+export const saveExistingUserDetailsLocally = async (
+  username: string, uid: string, email: string | null, interests: InterestId[], onboardingState: string) => {
   await chrome.storage.local.set({
-    userId,
     username,
-    interests: DEFAULT_SELECTED,
-    onboardingState: "username_set",
-  });
-
-  await setDoc(doc(db, "users", username), {
-    userId,
-    username,
-    interests: DEFAULT_SELECTED,
-    createdAt: serverTimestamp(),
+    userId: uid,
+    email,
+    interests,
+    onboardingState
   });
 };
+
+export const saveUserDetails = async (
+  username: string,
+  uid: string,
+  email?: string | null
+) => {
+  const safeEmail = email ?? null
+
+  await chrome.storage.local.set({
+    username,
+    userId: uid,
+    email: safeEmail,
+    interests: DEFAULT_SELECTED,
+    onboardingState: "username_set"
+  })
+
+  await setDoc(
+    doc(db, "users", username),
+    {
+      userId: uid,
+      email: safeEmail,
+      username,
+      interests: DEFAULT_SELECTED,
+      createdAt: serverTimestamp()
+    },
+    { merge: true }
+  )
+}
+
 
 export const finalizeOnboarding = async (
   username: string,
   interests: InterestId[]
 ) => {
-  if (!username) return;
-
   await chrome.storage.local.set({
     interests,
     onboardingState: "completed",

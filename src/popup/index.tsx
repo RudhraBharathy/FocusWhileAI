@@ -90,7 +90,7 @@ function Popup() {
 
   return (
     <Background>
-      <div className="relative z-10 px-8 flex flex-col gap-6">
+      <div className="relative z-10 px-8 flex flex-col gap-4">
         <h1 className="text-4xl font-bold text-center">
           <span className="bg-linear-to-b from-brand-glow to-brand-accent bg-clip-text text-transparent">
             FocusWhileAI

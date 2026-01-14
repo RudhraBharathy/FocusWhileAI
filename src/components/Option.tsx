@@ -1,4 +1,5 @@
 import { cn } from "@/utils/utils";
+import { memo } from "react";
 
 type OptionVariant = "onboarding" | "popup";
 
@@ -100,4 +101,4 @@ const Option = ({
   );
 };
 
-export default Option;
+export default memo(Option);
